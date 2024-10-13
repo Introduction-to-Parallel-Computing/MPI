@@ -108,7 +108,7 @@ mpirun -np <number_of_processors> ./mpi
 
 - **Μάθημα**: [Εισαγωγή στον Παράλληλο Υπολογισμό](https://ice.uniwa.gr/education/undergraduate/courses/introduction-to-parallel-computing/)
 - **Εξάμηνο**: 5
-- **Πρόγραμμα Σπουδών**: [UNIWA](https://www.uniwa.gr/)
+- **Πρόγραμμα Σπουδών**: [ΠΑΔΑ](https://www.uniwa.gr/)
 - **Τμήμα**: [Μηχανικών Πληροφορικής και Υπολογιστών](https://ice.uniwa.gr/)
 - **Διδάσκων**: [Ιορδανάκης Μιχαήλ](https://ice.uniwa.gr/academic_sc_ho/)
 - **Ακαδημαϊκή Χρονιά**: 2022-2023
