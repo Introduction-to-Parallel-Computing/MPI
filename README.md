@@ -151,8 +151,8 @@ This mechanism closes the gap created by simple parallel partitioning and ensure
 ### Repository Setup
 
 ```bash
-git clone https://github.com/Internet-of-Things-aka-Uniwa/Traffic-Lights.git
-cd Traffic-Lights
+git clone https://github.com/Introduction-to-Parallel-Computing/MPI.git
+cd MPI/src
 ```
 
 ### Prerequisites
