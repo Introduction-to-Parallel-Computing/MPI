@@ -1,161 +1,218 @@
-![Alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg/255px-Flag_of_the_United_Kingdom_%281-2%29.svg.png)
+<p align="center">
+  <img src="https://www.especial.gr/wp-content/uploads/2019/03/panepisthmio-dut-attikhs.png" alt="UNIWA" width="150"/>
+</p>
 
-# MPI Program for Checking Sorted Sequence
+<p align="center">
+  <strong>UNIVERSITY OF WEST ATTICA</strong><br>
+  SCHOOL OF ENGINEERING<br>
+  DEPARTMENT OF COMPUTER ENGINEERING AND INFORMATICS
+</p>
 
-For the requested Assignment, click the link:
-[Assignment](Assignment/)
+<hr/>
 
-For the Source Code, click the link:
-[Code](Code/)
+<p align="center">
+  <strong>Introduction to Parallel Computing</strong>
+</p>
 
-For the detailed Documentation, click the link:
-[Documentation](Documentation/)
+<h1 align="center" style="letter-spacing: 1px;">
+  Message Passing Interface (MPI)
+</h1>
 
-## Assignment Overview
+<p align="center">
+  <strong>Vasileios Evangelos Athanasiou</strong><br>
+  Student ID: 19390005
+</p>
 
-This project involves creating an MPI (Message Passing Interface) program in C that checks whether a sequence of integers is sorted in ascending order. The program is designed to run in a parallel environment with multiple processors (p), allowing the workload to be distributed evenly among them.
+<p align="center">
+  <a href="https://github.com/Ath21" target="_blank">GitHub</a> ·
+  <a href="https://www.linkedin.com/in/vasilis-athanasiou-7036b53a4/" target="_blank">LinkedIn</a>
+</p>
 
-### Objectives
+<hr/>
 
-- Read a sequence of integers from the user.
-- Check in parallel if the sequence is sorted in ascending order.
-- Print the result, including the first element that breaks the sorting (if applicable).
-- Handle any number of processors (p) and allow for dynamic adjustment of input size (N).
-- Provide a user-friendly menu to continue checking sequences or exit the program.
+<p align="center">
+  <strong>Supervision</strong>
+</p>
 
-## Course Information
+<p align="center">
+  Supervisor: Vasileios Mamalis, Professor
+</p>
+<p align="center">
+  <a href="https://ice.uniwa.gr/en/emd_person/vassilios-mamalis/" target="_blank">UNIWA Profile</a>
+</p>
 
-- **Course**: [Introduction to Parallel Computing](https://ice.uniwa.gr/education/undergraduate/courses/introduction-to-parallel-computing/)
-- **Semester**: 5
-- **Program of Study**: [UNIWA](https://www.uniwa.gr/)
-- **Department**: [Informatics and Computer Engineering](https://ice.uniwa.gr/)
-- **Lab Instructor**: [Iordanakis Michael](https://ice.uniwa.gr/academic_sc_ho/)
-- **Academic Season**: 2022-2023
+<p align="center">
+  Supervisor: Grammati Pantziou, Professor
+</p>
+<p align="center">
+  <a href="https://ice.uniwa.gr/en/emd_person/grammati-pantziou/" target="_blank">UNIWA Profile</a> ·
+  <a href="https://www.linkedin.com/in/grammati-pantziou-4731bb10a/" target="_blank">LinkedIn</a>
+</p>
 
-## Student Information
+<p align="center">
+  Co-supervisor: Michalis Iordanakis, Special Technical Laboratory Staff
+</p>
 
-- **Name**: Athanasiou Vasileios Evangelos
-- **Student ID**: 19390005
-- **Status**: Undergraduate
+<p align="center">
+  <a href="https://scholar.google.com/citations?user=LiVuwVEAAAAJ&hl=en" target="_blank">UNIWA Profile</a>
+</p>
 
-## Program Structure
+<hr/>
 
-### 1. Main MPI Program
+<p align="center">
+  Athens, December 2022
+</p>
 
-- **File**: `mpi.c`
-- **Functionality**: 
-  - Reads the size of the integer sequence (N) and the sequence itself from the user.
-  - Distributes the workload of checking whether the sequence is sorted among `p` processors.
-  - Collects the results and prints whether the sequence is sorted, along with the first unsorted element if applicable.
+---
 
-### 2. Menu and Iteration
+# Project Overview
 
-- The program provides a menu with options to:
-  1. Continue checking another sequence.
-  2. Exit the program.
-- The menu is displayed repeatedly until the user chooses to exit.
+This project implements a **parallel system** to check whether a sequence of integers is sorted in **ascending order**. It uses **point-to-point communication** between multiple processes without relying on collective MPI routines.  
 
-## Requirements
+The main objective is to distribute a sequence of size **N** equally among **p processors** and identify whether the sequence is sorted, as well as detect the **first element that violates the ascending order**.
 
-- **Operating System**: Linux-based OS or any Unix-like system that supports MPI.
-- **Compiler**: GCC (GNU Compiler Collection).
-- **Libraries**: MPI library (`mpi.h`).
+---
 
-## Installation and Usage
+## Table of Contents
 
-### 1. Clone the Repository
-Download the repository to your local machine:
+| Section | Folder | Description |
+|------:|--------|-------------|
+| 1 | `assign/` | Assignment material for the MPI (Message Passing Interface) laboratory |
+| 1.1 | `assign/PAR-LAB-EXER-I-2022-2023.pdf` | Laboratory exercise description in English |
+| 1.2 | `assign/ΠΑΡ-ΕΡΓ-ΑΣΚ-Ι-2022-2023.pdf` | Περιγραφή εργαστηριακής άσκησης (Greek) |
+| 2 | `docs/` | Documentation and theoretical background on MPI |
+| 2.1 | `docs/Message-Passing-Interface.pdf` | MPI theory and concepts (EN) |
+| 2.2 | `docs/Διασύνδεση-Περασμάτων-Μηνυμάτων.pdf` | Θεωρία Διασύνδεσης Περασμάτων Μηνυμάτων (EL) |
+| 3 | `src/` | Source code for MPI programs |
+| 3.1 | `src/mpi.c` | C implementation using the MPI programming model |
+| 4 | `README.md` | Repository overview, build, and execution instructions |
+
+---
+
+## Features
+
+- **Parallel Processing:**  
+  Distributes the computational workload across multiple processors, allowing each process to check a sub-sequence concurrently.
+
+- **Point-to-Point Communication:**  
+  Uses `MPI_Send` and `MPI_Recv` to manually exchange data between processes, especially for boundary element verification.
+
+- **Manager–Worker Model:**  
+  - Process **P₀** acts as the manager:
+    - Reads user input  
+    - Distributes data  
+    - Collects results and prints the final output  
+  - Remaining processes act as workers.
+
+- **Interactive Menu:**  
+  Allows users to:
+  - Run multiple sequence checks in succession  
+  - Exit the program gracefully through a menu interface
+
+---
+
+## Technical Implementation
+
+The program is written in **C** using the **MPI (Message Passing Interface)** environment.
+
+### Core MPI Routines Used
+
+- `MPI_Init`  
+  Initializes the MPI execution environment.
+
+- `MPI_Comm_rank` & `MPI_Comm_size`  
+  Determine the **process ID** and the **total number of processes**.
+
+- `MPI_Send` & `MPI_Recv`  
+  Enable blocking point-to-point communication for:
+  - Data distribution  
+  - Boundary element comparison
+
+- `MPI_Finalize`  
+  Terminates the MPI environment cleanly.
+
+---
+
+## Boundary Element Logic
+
+To ensure the entire sequence is globally sorted:
+
+- Each process **Pᵢ** (except the last one) sends its **last element** to process **Pᵢ₊₁**.
+- Process **Pᵢ₊₁** compares:
+  - Its **first element**
+  - With the **last element** of **Pᵢ**
+
+This mechanism closes the gap created by simple parallel partitioning and ensures correct global ordering verification.
+
+---
+
+## Getting Started
+
+### Repository Setup
+
+```bash
+git clone https://github.com/Internet-of-Things-aka-Uniwa/Traffic-Lights.git
+cd Traffic-Lights
 ```
-https://github.com/Introduction-to-Parallel-Computing/MPI
+
+### Prerequisites
+
+- MPI library installed (e.g., **OpenMPI** or **MPICH**)  
+- C compiler (e.g., **GCC**)
+
+---
+
+## Compilation
+
+Use `mpicc` to compile the source code:
+
+```bash
+mpicc -o Check_Sort_Seq Check_Sort_Seq.c
 ```
-### 2. Compile the Source Code
-Compile the MPI program using the GCC compiler:
+
+---
+
+## Running the Program
+Execute the program with mpirun, specifying the number of processors:
+```bash
+mpirun -np 4 ./Check_Sort_Seq
 ```
-mpicc -o mpi mpi.c
-```
-### 3. Run the Program
-Run the MPI program using the `mpirun` or `mpiexec` command, specifying the number of processes:
-```
-mpirun -np <number_of_processors> ./mpi
-```
+Note:
 
-![Alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_Greece.svg/255px-Flag_of_Greece.svg.png)
+The sequence size N must be an integer multiple of the number of processors p.
 
-# MPI Πρόγραμμα για Έλεγχο Ταξινομημένης Ακολουθίας
+---
 
-Για την ζητούμενη Άσκηση, κάντε κλικ στον σύνδεσμο:
-[Άσκηση](Assignment/)
+## Usage Example
+1. Input Size:
 
-Για τον Κώδικα, κάντε κλικ στον σύνδεσμο:
-[Κώδικας](Code/)
+    Enter the total size of the sequence (e.g., 8).
 
-Για την λεπτομερή Τεκμηρίωση, κάντε κλικ στον σύνδεσμο:
-[Τεκμηρίωση](Documentation/)
+2. Input Sequence:
 
-## Επισκόπηση Άσκησης
+    Enter the integers one by one.
 
-Αυτό το έργο περιλαμβάνει τη δημιουργία ενός προγράμματος MPI (Message Passing Interface) σε C που ελέγχει αν μια ακολουθία ακεραίων είναι ταξινομημένη σε αύξουσα σειρά. Το πρόγραμμα είναι σχεδιασμένο να εκτελείται σε ένα παράλληλο περιβάλλον με πολλαπλούς επεξεργαστές (p), επιτρέποντας την ομοιόμορφη κατανομή του φόρτου εργασίας μεταξύ τους.
+3. Result:
+    - Outputs yes if the sequence is sorted.
+    - Outputs no and reports the first element that breaks the ascending order otherwise.
 
-### Στόχοι
+4. Menu Options:
+    - [1] Run a new sequence check
+    - [2] Exit the program
 
-- Ανάγνωση μιας ακολουθίας ακεραίων από τον χρήστη.
-- Έλεγχος παράλληλα αν η ακολουθία είναι ταξινομημένη σε αύξουσα σειρά.
-- Εκτύπωση του αποτελέσματος, συμπεριλαμβανομένου του πρώτου στοιχείου που χαλάει την ταξινόμηση (αν υπάρχει).
-- Διαχείριση οποιουδήποτε αριθμού επεξεργαστών (p) και δυνατότητα δυναμικής προσαρμογής του μεγέθους εισόδου (N).
-- Παροχή ενός φιλικού προς το χρήστη μενού για να συνεχίσει να ελέγχει ακολουθίες ή να τερματίσει το πρόγραμμα.
+---
 
-## Πληροφορίες Μαθήματος
+## Conclusion
+This project demonstrates how MPI point-to-point communication can be used to solve a classic sequence validation problem in parallel. It highlights key concepts such as data distribution, process synchronization, and boundary condition handling, making it a solid example of practical parallel programming with MPI.
 
-- **Μάθημα**: [Εισαγωγή στον Παράλληλο Υπολογισμό](https://ice.uniwa.gr/education/undergraduate/courses/introduction-to-parallel-computing/)
-- **Εξάμηνο**: 5
-- **Πρόγραμμα Σπουδών**: [ΠΑΔΑ](https://www.uniwa.gr/)
-- **Τμήμα**: [Μηχανικών Πληροφορικής και Υπολογιστών](https://ice.uniwa.gr/)
-- **Διδάσκων**: [Ιορδανάκης Μιχαήλ](https://ice.uniwa.gr/academic_sc_ho/)
-- **Ακαδημαϊκή Χρονιά**: 2022-2023
+---
 
-## Πληροφορίες Φοιτητή
+## Open the Documentation
+1. Navigate to the `docs/` directory
+2. Open the report corresponding to your preferred language:
+    - English: `Message-Passing-Interface.pdf`
+    - Greek: `Διασύνδεση-Περασμάτων-Μηνυμάτων.pdf`
 
-- **Όνομα**: Αθανασίου Βασίλειος Ευάγγελος
-- **ΑΜ**: 19390005
-- **Κατάσταση**: Προπτυχιακός
 
-## Δομή Προγράμματος
 
-### 1. Κύριο Πρόγραμμα MPI
 
-- **Αρχείο**: `mpi.c`
-- **Λειτουργικότητα**: 
-  - Διαβάζει το μέγεθος της ακολουθίας ακεραίων (N) και την ίδια την ακολουθία από τον χρήστη.
-  - Κατανέμει το φόρτο εργασίας για τον έλεγχο αν η ακολουθία είναι ταξινομημένη μεταξύ `p` επεξεργαστών.
-  - Συγκεντρώνει τα αποτελέσματα και εκτυπώνει αν η ακολουθία είναι ταξινομημένη, μαζί με το πρώτο στοιχείο που δεν είναι ταξινομημένο αν χρειαστεί.
-
-### 2. Μενού και Επανάληψη
-
-- Το πρόγραμμα παρέχει ένα μενού με επιλογές για:
-  1. Συνεχίστε να ελέγχετε άλλη ακολουθία.
-  2. Έξοδο από το πρόγραμμα.
-- Το μενού εμφανίζεται επανειλημμένα έως ότου ο χρήστης επιλέξει να εξέλθει.
-
-## Απαιτήσεις
-
-- **Λειτουργικό Σύστημα**: Λειτουργικό σύστημα βασισμένο σε Linux ή οποιοδήποτε Unix-like σύστημα που υποστηρίζει MPI.
-- **Μεταγλωττιστής**: GCC (GNU Compiler Collection).
-- **Βιβλιοθήκες**: Βιβλιοθήκη MPI (`mpi.h`).
-
-## Εγκατάσταση και Χρήση
-
-### 1. Κλωνοποιήστε το Αποθετήριο
-Κατεβάστε το αποθετήριο στον τοπικό σας υπολογιστή:
-```
-git clone https://github.com/Introduction-to-Parallel-Computing/MPI
-```
-### 2. Μεταγλώττιση του Κώδικα
-Μεταγλωττίστε το πρόγραμμα MPI χρησιμοποιώντας τον μεταγλωττιστή GCC:
-```
-mpicc -o mpi mpi.c
-```
-### 3. Εκτέλεση του Προγράμματος
-Εκτελέστε το πρόγραμμα MPI χρησιμοποιώντας την εντολή `mpirun` ή `mpiexec`, καθορίζοντας τον αριθμό διαδικασιών:
-```
-mpirun -np <number_of_processors> ./mpi
-```
