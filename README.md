@@ -8,6 +8,11 @@
   DEPARTMENT OF COMPUTER ENGINEERING AND INFORMATICS
 </p>
 
+<p align="center">
+  <a href="https://www.uniwa.gr" target="_blank">University of West Attica</a> ·
+  <a href="https://ice.uniwa.gr" target="_blank">Department of Computer Engineering and Informatics</a>
+</p>
+
 <hr/>
 
 <p align="center">
@@ -50,14 +55,17 @@
 </p>
 
 <p align="center">
-  Co-supervisor: Michalis Iordanakis, Special Technical Laboratory Staff
+  Co-supervisor: Michalis Iordanakis, Academic Scholar
 </p>
 
 <p align="center">
-  <a href="https://scholar.google.com/citations?user=LiVuwVEAAAAJ&hl=en" target="_blank">UNIWA Profile</a>
+  <a href="https://ice.uniwa.gr/academic_sc_ho/" target="_blank">UNIWA Profile</a> ·
+  <a href="https://scholar.google.com/citations?user=LiVuwVEAAAAJ&hl=en" target="_blank">Scholar</a>
 </p>
 
-<hr/>
+</hr>
+
+---
 
 <p align="center">
   Athens, December 2022
@@ -65,9 +73,17 @@
 
 ---
 
-# Project Overview
+<p align="center">
+  <img src="https://i.ytimg.com/vi/KpyhUOC-ugE/maxresdefault.jpg" width="250"/>
+</p>
 
-This project implements a **parallel system** to check whether a sequence of integers is sorted in **ascending order**. It uses **point-to-point communication** between multiple processes without relying on collective MPI routines.  
+---
+
+# README
+
+## Message Passing Interface (MPI)
+
+This project implements a **parallel system** to check whether a sequence of integers is sorted in **ascending order**. It uses **point-to-point communication** between multiple processes without relying on collective MPI routines.
 
 The main objective is to distribute a sequence of size **N** equally among **p processors** and identify whether the sequence is sorted, as well as detect the **first element that violates the ascending order**.
 
@@ -75,21 +91,22 @@ The main objective is to distribute a sequence of size **N** equally among **p p
 
 ## Table of Contents
 
-| Section | Folder | Description |
-|------:|--------|-------------|
-| 1 | `assign/` | Assignment material for the MPI (Message Passing Interface) laboratory |
-| 1.1 | `assign/PAR-LAB-EXER-I-2022-2023.pdf` | Laboratory exercise description in English |
-| 1.2 | `assign/ΠΑΡ-ΕΡΓ-ΑΣΚ-Ι-2022-2023.pdf` | Περιγραφή εργαστηριακής άσκησης (Greek) |
-| 2 | `docs/` | Documentation and theoretical background on MPI |
-| 2.1 | `docs/Message-Passing-Interface.pdf` | MPI theory and concepts (EN) |
-| 2.2 | `docs/Διασύνδεση-Περασμάτων-Μηνυμάτων.pdf` | Θεωρία Διασύνδεσης Περασμάτων Μηνυμάτων (EL) |
-| 3 | `src/` | Source code for MPI programs |
-| 3.1 | `src/mpi.c` | C implementation using the MPI programming model |
-| 4 | `README.md` | Repository overview, build, and execution instructions |
+| Section | Folder                                     | Description                                                            |
+| ------: | ------------------------------------------ | ---------------------------------------------------------------------- |
+|       1 | `assign/`                                  | Assignment material for the MPI (Message Passing Interface) laboratory |
+|     1.1 | `assign/PAR-LAB-EXER-I-2022-2023.pdf`      | Laboratory exercise description in English                             |
+|     1.2 | `assign/ΠΑΡ-ΕΡΓ-ΑΣΚ-Ι-2022-2023.pdf`       | Περιγραφή εργαστηριακής άσκησης (Greek)                                |
+|       2 | `docs/`                                    | Documentation and theoretical background on MPI                        |
+|     2.1 | `docs/Message-Passing-Interface.pdf`       | MPI theory and concepts (EN)                                           |
+|     2.2 | `docs/Διασύνδεση-Περασμάτων-Μηνυμάτων.pdf` | Θεωρία Διασύνδεσης Περασμάτων Μηνυμάτων (EL)                           |
+|       3 | `src/`                                     | Source code for MPI programs                                           |
+|     3.1 | `src/mpi.c`                                | C implementation using the MPI programming model                       |
+|       4 | `README.md`                                | Project documentation                                                  |
+|       5 | `INSTALL.md`                               | Usage instructions                                                     |
 
 ---
 
-## Features
+## 1. Features
 
 - **Parallel Processing:**  
   Distributes the computational workload across multiple processors, allowing each process to check a sub-sequence concurrently.
@@ -97,25 +114,25 @@ The main objective is to distribute a sequence of size **N** equally among **p p
 - **Point-to-Point Communication:**  
   Uses `MPI_Send` and `MPI_Recv` to manually exchange data between processes, especially for boundary element verification.
 
-- **Manager–Worker Model:**  
+- **Manager–Worker Model:**
   - Process **P₀** acts as the manager:
-    - Reads user input  
-    - Distributes data  
-    - Collects results and prints the final output  
+    - Reads user input
+    - Distributes data
+    - Collects results and prints the final output
   - Remaining processes act as workers.
 
 - **Interactive Menu:**  
   Allows users to:
-  - Run multiple sequence checks in succession  
+  - Run multiple sequence checks in succession
   - Exit the program gracefully through a menu interface
 
 ---
 
-## Technical Implementation
+## 2. Technical Implementation
 
 The program is written in **C** using the **MPI (Message Passing Interface)** environment.
 
-### Core MPI Routines Used
+### 2.1 Core MPI Routines Used
 
 - `MPI_Init`  
   Initializes the MPI execution environment.
@@ -125,7 +142,7 @@ The program is written in **C** using the **MPI (Message Passing Interface)** en
 
 - `MPI_Send` & `MPI_Recv`  
   Enable blocking point-to-point communication for:
-  - Data distribution  
+  - Data distribution
   - Boundary element comparison
 
 - `MPI_Finalize`  
@@ -133,7 +150,7 @@ The program is written in **C** using the **MPI (Message Passing Interface)** en
 
 ---
 
-## Boundary Element Logic
+## 3. Boundary Element Logic
 
 To ensure the entire sequence is globally sorted:
 
@@ -146,73 +163,6 @@ This mechanism closes the gap created by simple parallel partitioning and ensure
 
 ---
 
-## Getting Started
+## 4. Conclusion
 
-### Repository Setup
-
-```bash
-git clone https://github.com/Introduction-to-Parallel-Computing/MPI.git
-cd MPI/src
-```
-
-### Prerequisites
-
-- MPI library installed (e.g., **OpenMPI** or **MPICH**)  
-- C compiler (e.g., **GCC**)
-
----
-
-## Compilation
-
-Use `mpicc` to compile the source code:
-
-```bash
-mpicc -o Check_Sort_Seq Check_Sort_Seq.c
-```
-
----
-
-## Running the Program
-Execute the program with mpirun, specifying the number of processors:
-```bash
-mpirun -np 4 ./Check_Sort_Seq
-```
-Note:
-
-The sequence size N must be an integer multiple of the number of processors p.
-
----
-
-## Usage Example
-1. Input Size:
-
-    Enter the total size of the sequence (e.g., 8).
-
-2. Input Sequence:
-
-    Enter the integers one by one.
-
-3. Result:
-    - Outputs yes if the sequence is sorted.
-    - Outputs no and reports the first element that breaks the ascending order otherwise.
-
-4. Menu Options:
-    - [1] Run a new sequence check
-    - [2] Exit the program
-
----
-
-## Conclusion
 This project demonstrates how MPI point-to-point communication can be used to solve a classic sequence validation problem in parallel. It highlights key concepts such as data distribution, process synchronization, and boundary condition handling, making it a solid example of practical parallel programming with MPI.
-
----
-
-## Open the Documentation
-1. Navigate to the `docs/` directory
-2. Open the report corresponding to your preferred language:
-    - English: `Message-Passing-Interface.pdf`
-    - Greek: `Διασύνδεση-Περασμάτων-Μηνυμάτων.pdf`
-
-
-
-
